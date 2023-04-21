@@ -33,33 +33,32 @@ builds, trains, and saves a neural network classifier
     tf.add_to_collection('accuracy', accuracy)
     tf.add_to_collection('train_op', train_op)
 
-    init = tf.global_variables_initializer()
+
     saver = tf.train.Saver()
 
-    with tf.Session() as sess:
-        sess.run(init)
-        for i in range(iterations + 1):
-            t_loss, t_accur = sess.run((loss, accuracy), feed_dict={
-                x: X_train, y: Y_train})
-            v_loss, v_accur = sess.run((loss, accuracy), feed_dict={
-                x: X_valid, y: Y_valid})
-            if i % 100 == 0:
-                print("After {} iterations:".format(i))
-                print("\tTraining Cost: {}".format(t_loss))
-                print("\tTraining Accuracy: {}".format(t_accur))
-                print("\tValidation Cost: {}".format(v_loss))
-                print("\tValidation Accuracy: {}".format(v_accur))
-            _ = sess.run(train_op, feed_dict={
-                x: X_train, y: Y_train})
-
-        i += 1
-        t_loss, t_accur = sess.run((loss, accuracy), feed_dict={
-            x: X_train, y: Y_train})
-        v_loss, v_accur = sess.run((loss, accuracy), feed_dict={
-            x: X_valid, y: Y_valid})
-        print("After {} iterations:".format(i))
-        print("\tTraining Cost: {}".format(t_loss))
-        print("\tTraining Accuracy: {}".format(t_accur))
-        print("\tValidation Cost: {}".format(v_loss))
-        print("\tValidation Accuracy: {}".format(v_accur))
-        return saver.save(sess, save_path)
+    with tf.Session() as session:
+        session.run(tf.global_variables_initializer())
+        for iteration in range(iterations + 1):
+            loss_train = session.run(loss,
+                                     feed_dict={x: X_train,
+                                                y: Y_train})
+            acc_train = session.run(accuracy,
+                                    feed_dict={x: X_train,
+                                               y: Y_train})
+            loss_valid = session.run(loss,
+                                     feed_dict={x: X_valid,
+                                                y: Y_valid})
+            acc_valid = session.run(accuracy,
+                                    feed_dict={x: X_valid,
+                                               y: Y_valid})
+            if iteration % 100 == 0 or iteration == iterations:
+                print("After {} iterations:".format(iteration))
+                print("\tTraining Cost: {}".format(loss_train))
+                print("\tTraining Accuracy: {}".format(acc_train))
+                print("\tValidation Cost: {}".format(loss_valid))
+                print("\tValidation Accuracy: {}".format(acc_valid))
+            if iteration < iterations:
+                session.run(train_op, feed_dict={x: X_train,
+                                                 y: Y_train})
+        save_path = saver.save(session, save_path)
+    return 
