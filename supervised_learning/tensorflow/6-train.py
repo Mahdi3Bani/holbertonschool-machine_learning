@@ -17,11 +17,7 @@ def train(X_train, Y_train, X_valid, Y_valid, layer_sizes,
     """
 builds, trains, and saves a neural network classifier
     """
-    tf.set_random_seed(0)
-    _, n_features = X_train.shape
-    n_classes = Y_train.shape[1]
-
-    x, y = create_placeholders(n_features, n_classes)
+    x, y = create_placeholders(X_train.shape, Y_train.shape[1])
 
     y_pred = forward_prop(x, layer_sizes, activations)
 
@@ -37,23 +33,33 @@ builds, trains, and saves a neural network classifier
     tf.add_to_collection('accuracy', accuracy)
     tf.add_to_collection('train_op', train_op)
 
+    init = tf.global_variables_initializer()
     saver = tf.train.Saver()
 
     with tf.Session() as sess:
-        sess.run(tf.global_variables_initializer())
+        sess.run(init)
         for i in range(iterations + 1):
-            _, cost, train_acc = sess.run([train_op, loss, accuracy], feed_dict={
-                                          x: X_train, y: Y_train})
-
+            t_loss, t_accur = sess.run((loss, accuracy), feed_dict={
+                x: X_train, y: Y_train})
+            v_loss, v_accur = sess.run((loss, accuracy), feed_dict={
+                x: X_valid, y: Y_valid})
             if i % 100 == 0:
-                valid_cost, valid_acc = sess.run(
-                    [loss, accuracy], feed_dict={x: X_valid, y: Y_valid})
                 print("After {} iterations:".format(i))
-                print("\tTraining Cost: {}".format(cost))
-                print("\tTraining Accuracy: {}".format(train_acc))
-                print("\tValidation Cost: {}".format(valid_cost))
-                print("\tValidation Accuracy: {}".format(valid_acc))
+                print("\tTraining Cost: {}".format(t_loss))
+                print("\tTraining Accuracy: {}".format(t_accur))
+                print("\tValidation Cost: {}".format(v_loss))
+                print("\tValidation Accuracy: {}".format(v_accur))
+            _ = sess.run(train_op, feed_dict={
+                x: X_train, y: Y_train})
 
-        save_path = saver.save(sess, save_path)
-
-    return save_path
+        i += 1
+        t_loss, t_accur = sess.run((loss, accuracy), feed_dict={
+            x: X_train, y: Y_train})
+        v_loss, v_accur = sess.run((loss, accuracy), feed_dict={
+            x: X_valid, y: Y_valid})
+        print("After {} iterations:".format(i))
+        print("\tTraining Cost: {}".format(t_loss))
+        print("\tTraining Accuracy: {}".format(t_accur))
+        print("\tValidation Cost: {}".format(v_loss))
+        print("\tValidation Accuracy: {}".format(v_accur))
+        return saver.save(sess, save_path)
