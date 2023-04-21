@@ -1,30 +1,63 @@
 #!/usr/bin/env python3
 """
-evaluates the output of a neural network:
+builds, trains, and saves a neural network classifier
 """
 
 
 import tensorflow as tf
+calculate_accuracy = __import__('3-calculate_accuracy').calculate_accuracy
+calculate_loss = __import__('4-calculate_loss').calculate_loss
+create_placeholders = __import__('0-create_placeholders').create_placeholders
+create_train_op = __import__('5-create_train_op').create_train_op
+forward_prop = __import__('2-forward_prop').forward_prop
 
 
-def evaluate(X, Y, save_path):
+def train(X_train, Y_train, X_valid, Y_valid, layer_sizes,
+          activations, alpha, iterations, save_path="/tmp/model.ckpt"):
     """
-    evaluates the output of a neural network:
+builds, trains, and saves a neural network classifier
     """
-    with tf.Session() as sess:
-        saver = tf.train.import_meta_graph(save_path + '.meta')
-        saver.restore(sess, save_path)
+    x, y = create_placeholders(X_train.shape[1], Y_train.shape[1])
 
-        graph = tf.get_default_graph()
-        x = graph.get_tensor_by_name('x:0')
-        y = graph.get_tensor_by_name('y:0')
-        y_pred = graph.get_tensor_by_name('y_pred:0')
-        accuracy = graph.get_collection('accuracy')[0]
-        loss = graph.get_collection('loss')[0]
+    y_pred = forward_prop(x, layer_sizes, activations)
 
-        # evaluate the model on the input data
-        feed_dict = {x: X, y: Y}
-        y_pred_val, accuracy_val, loss_val = sess.run(
-            [y_pred, accuracy, loss], feed_dict=feed_dict)
+    loss = calculate_loss(y, y_pred)
+    accuracy = calculate_accuracy(y, y_pred)
 
-    return y_pred_val, accuracy_val, loss_val
+    train_op = create_train_op(loss, alpha)
+
+    tf.add_to_collection('x', x)
+    tf.add_to_collection('y', y)
+    tf.add_to_collection('y_pred', y_pred)
+    tf.add_to_collection('loss', loss)
+    tf.add_to_collection('accuracy', accuracy)
+    tf.add_to_collection('train_op', train_op)
+
+    saver = tf.train.Saver()
+
+    with tf.Session() as session:
+        session.run(tf.global_variables_initializer())
+        for i in range(iterations + 1):
+            loss_train = session.run(loss,
+                                     feed_dict={x: X_train,
+                                                y: Y_train})
+            acc_train = session.run(accuracy,
+                                    feed_dict={x: X_train,
+                                               y: Y_train})
+            loss_valid = session.run(loss,
+                                     feed_dict={x: X_valid,
+                                                y: Y_valid})
+            acc_valid = session.run(accuracy,
+                                    feed_dict={x: X_valid,
+                                               y: Y_valid})
+            if i % 100 == 0 or i == iterations:
+                print("After {} iterations:".format(i))
+                print("\tTraining Cost: {}".format(loss_train))
+                print("\tTraining Accuracy: {}".format(acc_train))
+                print("\tValidation Cost: {}".format(loss_valid))
+                print("\tValidation Accuracy: {}".format(acc_valid))
+            if i < iterations:
+                session.run(train_op, feed_dict={x: X_train,
+                                                 y: Y_train})
+        save_path = saver.save(session, save_path)
+    return save_path
