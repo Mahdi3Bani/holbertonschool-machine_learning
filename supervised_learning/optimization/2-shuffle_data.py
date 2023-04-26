@@ -3,10 +3,10 @@
 
 
 import numpy as np
-"""shuffles the data points in two matrices the same way"""
 
 
 def shuffle_data(X, Y):
+    """shuffles the data points in two matrices the same way"""
 
     permutation = np.random.permutation(X.shape[0])
     X_shuffled = X[permutation]
