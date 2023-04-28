@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 """ Train a loaded neural network model using mini-batch gradient descent """
+
+
 import tensorflow as tf
 shuffle_data = __import__('2-shuffle_data').shuffle_data
 
@@ -37,7 +39,22 @@ def train_mini_batch(X_train, Y_train, X_valid, Y_valid, batch_size=32, epochs=5
             for j in range(0, length_of_dataset, batch_size):
                 steps.append((j, j + batch_size))
 
-            for k , (start, end) in enumerate(steps, start = 1):
+                """             
+            for k in range(1, len(steps)):
+                start, end = steps[k]
+                x_batch = X_shuff[start:end]
+                y_batch = Y_shuff[start:end]
+                feed_dict = {x: x_batch, y: y_batch}
+                sess.run(train_op, feed_dict=feed_dict)
+                if k % 100 == 0:
+                    loss_mini_batch = sess.run(loss, feed_dict=feed_dict)
+                    accuracy_mini_batch = sess.run(accuracy,
+                                                   feed_dict=feed_dict)
+                    print("\tStep {}:".format(k))
+                    print("\t\tCost: {}".format(loss_mini_batch))
+                    print("\t\tAccuracy: {}".format(accuracy_mini_batch))
+                    """
+            for k, (start, end) in enumerate(steps, start=1):
                 x_batch = X_shuff[start:end]
                 y_batch = Y_shuff[start:end]
                 feed_dict = {x: x_batch, y: y_batch}
