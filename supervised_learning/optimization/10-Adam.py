@@ -11,6 +11,6 @@ def create_Adam_op(loss, alpha, beta1, beta2, epsilon):
     in tensorflow using the Adam optimization algorithm"""
 
     optimizer = tf.train.AdamOptimizer(learning_rate=alpha,
-                                          beta1=beta1, beta2=beta2,
-                                          epsilon=epsilon)
+                                       beta1=beta1, beta2=beta2,
+                                       epsilon=epsilon)
     return optimizer.minimize(loss)
