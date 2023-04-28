@@ -37,8 +37,7 @@ def train_mini_batch(X_train, Y_train, X_valid, Y_valid, batch_size=32, epochs=5
             for j in range(0, length_of_dataset, batch_size):
                 steps.append((j, j + batch_size))
 
-            for k in range(1, len(steps)):
-                start, end = steps[k]
+            for k , (start, end) in enumerate(steps, start = 1):
                 x_batch = X_shuff[start:end]
                 y_batch = Y_shuff[start:end]
                 feed_dict = {x: x_batch, y: y_batch}
