@@ -5,10 +5,8 @@
 def moving_average(data, beta):
     """calculates the weighted moving average of a data set"""
     l = []
-    l.append(data[0])
-    bias = 1
-    for i in range(1, len(data)):
-        l.append(beta * l[i - 1] + (1 - beta) * data[i])
-        bias *= beta
-        l[i] = l[i]/(1 - bias)
+    f = 0
+    for i in range(len(data)):
+        f = beta * f + (1 - beta) * data[i]
+        l.append(f / (1 - beta ** (i + 1)))
     return l
