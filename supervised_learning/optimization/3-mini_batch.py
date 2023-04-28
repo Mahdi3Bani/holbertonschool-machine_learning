@@ -6,8 +6,12 @@ import tensorflow as tf
 shuffle_data = __import__('2-shuffle_data').shuffle_data
 
 
-def train_mini_batch(X_train, Y_train, X_valid, Y_valid, batch_size=32, epochs=5, load_path="/tmp/model.ckpt", save_path="/tmp/model.ckpt"):
-    """ train a loaded neural network model using mini-batch gradient descent """
+def train_mini_batch(X_train, Y_train, X_valid,
+                     Y_valid, batch_size=32, epochs=5,
+                     load_path="/tmp/model.ckpt",
+                     save_path="/tmp/model.ckpt"):
+    """ train a loaded neural network model
+    using mini-batch gradient descent """
     with tf.Session() as sess:
         loader = tf.train.import_meta_graph(load_path + ".meta")
         loader.restore(sess, load_path)
@@ -38,7 +42,6 @@ def train_mini_batch(X_train, Y_train, X_valid, Y_valid, batch_size=32, epochs=5
             steps = []
             for j in range(0, length_of_dataset, batch_size):
                 steps.append((j, j + batch_size))
-
                 """             
             for k in range(1, len(steps)):
                 start, end = steps[k]
