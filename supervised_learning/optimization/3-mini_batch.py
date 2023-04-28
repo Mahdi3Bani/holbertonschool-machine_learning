@@ -42,8 +42,8 @@ def train_mini_batch(X_train, Y_train, X_valid,
             steps = []
             for j in range(0, length_of_dataset, batch_size):
                 steps.append((j, j + batch_size))
-                """             
-            for k in range(1, len(steps)):
+                """
+                for k in range(1, len(steps)):
                 start, end = steps[k]
                 x_batch = X_shuff[start:end]
                 y_batch = Y_shuff[start:end]
