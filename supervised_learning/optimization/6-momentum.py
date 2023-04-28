@@ -13,5 +13,5 @@ tensorflow using the gradient descent with momentum
 optimization algorithm"""
 
     optimizer = tf.train.MomentumOptimizer(learning_rate=alpha, momentum=beta1)
-    train_op = optimizer.minimize(loss)
-    return train_op
+    
+    return optimizer.minimize(loss)
