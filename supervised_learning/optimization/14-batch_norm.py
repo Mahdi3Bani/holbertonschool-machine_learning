@@ -11,8 +11,8 @@ def create_batch_norm_layer(prev, n, activation):
     """
     dense = tf.layers.Dense(units=n,
                             kernel_initializer=tf.contrib.layers.
-                            variance_scaling_initializer(
-        mode="FAN_AVG"), use_bias=False)
+                            variance_scaling_initializer(mode="FAN_AVG")
+                            , use_bias=False)
 
     mean, variance = tf.nn.moments(dense(prev), axes=0)
 
