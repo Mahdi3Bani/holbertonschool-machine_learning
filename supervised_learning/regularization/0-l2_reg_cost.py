@@ -1,4 +1,4 @@
-##!/usr/bin/env python3
+#!/usr/bin/env python3
 """
     Calculates the cost of a neural network with L2 regularization.
 """
