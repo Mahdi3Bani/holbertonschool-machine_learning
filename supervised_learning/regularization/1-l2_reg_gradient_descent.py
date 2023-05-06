@@ -1,4 +1,4 @@
-##!/usr/bin/env python3
+#!/usr/bin/env python3
 """
     Updates the weights and biases of a neural
     network using gradient descent with L2 regularization.
