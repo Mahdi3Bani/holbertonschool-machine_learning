@@ -1,32 +1,40 @@
 #!/usr/bin/env python3
 
-
-
 import numpy as np
 
+
+
+def softmax(z):
+    """
+    Applies the softmax activation function elementwise to the input array z.
+
+    Args:
+        z (numpy.ndarray): Input array.
+
+    Returns:
+        numpy.ndarray: Output array after applying the softmax function.
+    """
+    
+    return np.exp(z) / np.sum(np.exp(z), axis=0)
 
 def dropout_forward_prop(X, weights, L, keep_prob):
     """
     Conducts forward propagation using Dropout.
     """
-
-    outputs = {}
-    masks = {}
-    outputs['A0'] = X
-
-    for l in range(1, L+1):
-        Z = np.dot(weights['W' + str(l)], outputs['A' + str(l-1)]) + weights['b' + str(l)]
-
-        if l < L:
+    cache = {'A0': X}
+    
+    for l in range(L):
+        A = cache['A' + str(l)]
+        W = weights['W' + str(l + 1)]
+        b = weights['b' + str(l + 1)]
+        Z = np.dot(W, A) + b
+        if l != L - 1:
             A = np.tanh(Z)
-            mask = np.random.binomial(1, keep_prob, size=A.shape)
-            A *= mask
+            D = np.random.binomial(1, keep_prob, size=Z.shape)
+            A *= D
             A /= keep_prob
-            masks['D' + str(l)] = mask
+            cache['D' + str(l + 1)] = D
         else:
-            A = np.exp(Z) / np.sum(np.exp(Z), axis=0, keepdims=True)
-
-        outputs['Z' + str(l)] = Z
-        outputs['A' + str(l)] = A
-
-    return outputs, masks
+            A = softmax(Z)
+        cache['A' + str(l + 1)] = A
+    return cache
