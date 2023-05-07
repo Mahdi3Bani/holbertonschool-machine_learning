@@ -19,18 +19,18 @@ def dropout_forward_prop(X, weights, L, keep_prob):
     """
     cache = {'A0': X}
 
-    for l in range(L):
-        A = cache['A' + str(l)]
-        W = weights['W' + str(l + 1)]
-        b = weights['b' + str(l + 1)]
+    for layer in range(L):
+        A = cache['A' + str(layer)]
+        W = weights['W' + str(layer + 1)]
+        b = weights['b' + str(layer + 1)]
         Z = np.dot(W, A) + b
-        if l != L - 1:
+        if layer != L - 1:
             A = np.tanh(Z)
             D = np.random.binomial(1, keep_prob, size=Z.shape)
             A *= D
             A /= keep_prob
-            cache['D' + str(l + 1)] = D
+            cache['D' + str(layer + 1)] = D
         else:
             A = softmax(Z)
-        cache['A' + str(l + 1)] = A
+        cache['A' + str(layer + 1)] = A
     return cache
