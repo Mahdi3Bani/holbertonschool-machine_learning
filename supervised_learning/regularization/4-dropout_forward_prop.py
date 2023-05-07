@@ -1,28 +1,24 @@
 #!/usr/bin/env python3
+"""Conducts forward propagation using Dropout."""
+
 
 import numpy as np
-
 
 
 def softmax(z):
     """
     Applies the softmax activation function elementwise to the input array z.
-
-    Args:
-        z (numpy.ndarray): Input array.
-
-    Returns:
-        numpy.ndarray: Output array after applying the softmax function.
     """
-    
+
     return np.exp(z) / np.sum(np.exp(z), axis=0)
+
 
 def dropout_forward_prop(X, weights, L, keep_prob):
     """
     Conducts forward propagation using Dropout.
     """
     cache = {'A0': X}
-    
+
     for l in range(L):
         A = cache['A' + str(l)]
         W = weights['W' + str(l + 1)]
