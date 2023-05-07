@@ -1,3 +1,7 @@
+#!/usr/bin/env python3
+"""Update the weights of a neural network with Dropout regularization using gradient descent."""
+
+
 import numpy as np
 
 
