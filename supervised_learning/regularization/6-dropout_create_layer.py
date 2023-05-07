@@ -8,8 +8,8 @@ def dropout_create_layer(prev, n, activation, keep_prob):
     """creates a layer of a neural network using dropout"""
     initializer = tf.contrib.layers.variance_scaling_initializer\
         (mode="FAN_AVG")
-    regularizer = tf.contrib.layers.l2_regularizer(scale=0.1)
     dropout = tf.layers.Dropout(rate=(1-keep_prob))
     layer = tf.layers.Dense(units=n, activation=activation,
-                            kernel_initializer=initializer, kernel_regularizer=regularizer)
-    return dropout(layer(prev))
+                            kernel_initializer=initializer,
+                            kernel_regularizer=dropout)
+    return (layer(prev))
