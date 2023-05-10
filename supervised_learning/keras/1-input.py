@@ -2,7 +2,7 @@
 """Builds a neural network using Keras"""
 
 
-import tensorflow.keras as k
+import tensorflow.keras as K
 
 
 def build_model(nx, layers, activations, lambtha, keep_prob):
@@ -11,16 +11,20 @@ def build_model(nx, layers, activations, lambtha, keep_prob):
 
     """
 
-    X_input = k.Input(shape=(nx,))
+    X_input = K.Input(shape=(nx,))
 
-    X = X_input
+    regularization = K.regularizers.l2(lambtha)
+
+    x = K.layers.Dense(layers[0], activation=activations[0], kernel_regularizer=regularization)(inputs)
+    x = K.layers.Dropout(1 - keep_prob)(x)
+
 
     for i in range(len(layers)):
-        X = k.layers.Dense(units=layers[i],
-                           kernel_regularizer=k.regularizers.l2(lambtha))(X)
-        X = k.layers.Activation(activations[i])(X)
-        X = k.layers.Dropout(1 - keep_prob)(X)
+        X = x = K.layers.Dense(layers[i], activation=activations[i], kernel_regularizer=regularization)(x)
 
-    model = k.Model(inputs=X_input, outputs=X)
+        
+        X = K.layers.Dropout(1 - keep_prob)(X)
+
+    model = K.Model(inputs=X_input, outputs=X)
 
     return model
