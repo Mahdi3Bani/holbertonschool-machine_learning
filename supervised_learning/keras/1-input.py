@@ -17,9 +17,9 @@ def build_model(nx, layers, activations, lambtha, keep_prob):
 
     for i in range(len(layers)):
         dense = (K.layers.
-                  Dense(layers[i],
-                        activation=activations[i],
-                        kernel_regularizer=regularization))
+                 Dense(layers[i],
+                       activation=activations[i],
+                       kernel_regularizer=regularization))
         Y = dense(Y)
 
         if i < len(layers) - 1:
