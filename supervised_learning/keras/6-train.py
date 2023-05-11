@@ -15,7 +15,11 @@ def train_model(network, data, labels, batch_size, epochs, validation_data=None,
             patience=patience
         )
         callbacks.append(early_stopping)
-    return network.fit(x=data, y=labels, batch_size=batch_size,
-                       epochs=epochs, validation_data=validation_data,
-                       early_stopping=early_stopping, patience=patience,
-                       verbose=verbose, shuffle=shuffle, callbacks=callbacks)
+    return network.fit(x=data,
+                       y=labels,
+                       batch_size=batch_size,
+                       epochs=epochs,
+                       verbose=verbose,
+                       shuffle=shuffle,
+                       validation_data=validation_data,
+                       callbacks=callbacks)
