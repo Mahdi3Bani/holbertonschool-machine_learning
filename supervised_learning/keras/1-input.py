@@ -13,8 +13,6 @@ def build_model(nx, layers, activations, lambtha, keep_prob):
 
     X = Y = K.Input(shape=(nx,))
 
-    
-
     for i in range(len(layers)):
         dense = (K.layers.
                  Dense(layers[i],
