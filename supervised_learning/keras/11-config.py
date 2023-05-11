@@ -5,11 +5,10 @@
 import tensorflow.keras as K
 
 
-def save_weights(network, filename):
+def save_config(network, filename):
     """function to save the model"""
     with open(filename, 'w') as f:
         f.write(network.to_json())
-
 
 def load_config(filename):
     '''function to loas a model from a filepath'''
