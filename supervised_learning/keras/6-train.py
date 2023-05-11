@@ -9,7 +9,13 @@ def train_model(network, data, labels, batch_size, epochs, validation_data=None,
                 early_stopping=False, patience=0, verbose=True, shuffle=False):
     """update the previous function and
     to also analyze validaiton data"""
+    callbacks = [] 
+    if early_stopping and validation_data:
+        early_stopping = K.callbacks.EarlyStopping(
+            monitor='val_loss',
+            patience=patience
+        )
     return network.fit(data, labels, batch_size=batch_size,
                        epochs=epochs, validation_data=validation_data,
                        early_stopping=early_stopping,patience=patience,
-                       verbose=verbose, shuffle=shuffle)
+                       verbose=verbose, shuffle=shuffle, callbacks=callbacks)
