@@ -12,4 +12,4 @@ def save_weights(network, filename):
 
 def load_weights(network, filename):
     '''function to loas a model from a filepath'''
-    return K.models.load_weights(filename)
+    return network.load_weights(filename)
