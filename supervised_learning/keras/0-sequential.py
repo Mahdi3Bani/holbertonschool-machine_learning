@@ -16,12 +16,11 @@ def build_model(nx, layers, activations, lambtha, keep_prob):
     if len(layers) > 1:
         model.add(K.layers.Dropout(1 - keep_prob))
 
-
-    for i in range(1, len(layers) - 1):
+    for i in range(1, len(layers)):
         model.add(K.layers.
                   Dense(layers[i],
                         activation=activations[i],
                         kernel_regularizer=K.regularizers.l2(lambtha)))
-        if keep_prob < 1:
+        if i < len(layers) - 1:
             model.add(K.layers.Dropout(1-keep_prob))
     return model
