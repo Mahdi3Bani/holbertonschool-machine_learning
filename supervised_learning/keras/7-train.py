@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-"""update the previous function and to train the model with learning rate decay"""
+"""update the previous function and to train
+the model with learning rate decay"""
 
 
 import tensorflow.keras as K
