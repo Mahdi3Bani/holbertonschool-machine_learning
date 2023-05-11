@@ -11,5 +11,5 @@ def train_model(network, data, labels, batch_size, epochs, validation_data=None,
     to also analyze validaiton data"""
     return network.fit(data, labels, batch_size=batch_size,
                        epochs=epochs, validation_data=validation_data,
-                       early_stopping=early_stopping,patience=patience
+                       early_stopping=early_stopping,patience=patience,
                        verbose=verbose, shuffle=shuffle)
