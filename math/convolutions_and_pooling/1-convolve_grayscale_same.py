@@ -15,7 +15,6 @@ def convolve_grayscale_same(images, kernel):
     ph = int((kh - 1) / 2) if kh % 2 != 0 else int(kh / 2)
     pw = int((kw - 1) / 2) if kw % 2 != 0 else int(kw / 2)
 
-
     # Initialize the output array
     output = np.zeros((m, h, w))
 
