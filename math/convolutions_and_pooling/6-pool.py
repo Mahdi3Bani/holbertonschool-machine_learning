@@ -25,10 +25,10 @@ def pool(images, kernel_shape, stride, mode='max'):
         for y in range(ow):
             if mode == "max":
                 output[:, x, y, :] = images\
-                [:, x *sh:w *sh + kh, y * sh:y * sh + kw, :].max(axis=(1, 2))
+                [:, x *sh:x *sh + kh, y * sh:y * sh + kw, :].max(axis=(1, 2))
             else:
                 output[:, x, y, :] = np.mean(
-                    images[:, x *sh:w *sh + kh, y * sh:y * sh + kw, :],
+                    images[:, x *sh:x *sh + kh, y * sh:y * sh + kw, :],
                     axis=(1, 2)
                 )
 
