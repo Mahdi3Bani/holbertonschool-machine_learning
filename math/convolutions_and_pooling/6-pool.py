@@ -14,23 +14,21 @@ def pool(images, kernel_shape, stride, mode='max'):
     sh, sw = stride
 
     # Compute the output shape
-    oh = int((h - kh ) / sh + 1)
-    ow = int((w - kw ) / sw + 1)
+    oh = int((h - kh) / sh + 1)
+    ow = int((w - kw) / sw + 1)
 
     # Initialize the output array
     output = np.zeros(shape=(m, oh, ow, c))
 
-
     for x in range(oh):
         for y in range(ow):
             if mode == "max":
-                output[:, x, y, :] = images\
-                [:, x *sh:x *sh + kh, y * sw:y * sw + kw, :].max(axis=(1, 2))
+                output[:, x, y, :] = images[:, x * sh:x * sh +
+                                            kh, y * sw:y * sw + kw, :].max(axis=(1, 2))
             else:
                 output[:, x, y, :] = np.mean(
-                    images[:, x *sh:x *sh + kh, y * sw:y * sw + kw, :],
+                    images[:, x * sh:x * sh + kh, y * sw:y * sw + kw, :],
                     axis=(1, 2)
                 )
-
 
     return output
