@@ -35,7 +35,7 @@ def convolve_channels(images, kernel, padding='same', stride=(1, 1)):
             (0, 0),
             (ph, ph),
             (pw, pw),
-            (0,0)
+            (0, 0)
         ],
         mode="constant"
     )
