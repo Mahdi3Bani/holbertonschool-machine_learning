@@ -25,7 +25,7 @@ def pool(images, kernel_shape, stride, mode='max'):
             if mode == "max":
                 output[:, x, y, :] = images[:, x * sh:x * sh +
                                             kh, y * sw:y * sw + kw, :].\
-                max(axis=(1, 2))
+                    max(axis=(1, 2))
             else:
                 output[:, x, y, :] = np.mean(
                     images[:, x * sh:x * sh + kh, y * sw:y * sw + kw, :],
