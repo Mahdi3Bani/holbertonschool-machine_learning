@@ -8,7 +8,7 @@ import numpy as np
 
 def pool_forward(A_prev, kernel_shape, stride=(1, 1), mode='max'):
     """
-    performs forward propagation over 
+    performs forward propagation over
     a pooling layer of a neural network
 
     A_prev: is a numpy.ndarray of shape (m, h_prev, w_prev, c_prev)
