@@ -11,7 +11,9 @@ def conv_backward(dZ, A_prev, W, b, padding="same", stride=(1, 1)):
     performs back propagation over a convolutional
     layer of a neural network
 
-    dZ: numpy.ndarray of shape (m, h_new, w_new, c_new) containing the partial derivatives with respect to the unactivated output of the convolutional layer
+    dZ: numpy.ndarray of shape (m, h_new, w_new, c_new)
+    containing the partial derivatives with respect to the
+    unactivated output of the convolutional layer
         *m is the number of examples
         *h_new is the height of the output
         *w_new is the width of the output
@@ -80,10 +82,10 @@ def conv_backward(dZ, A_prev, W, b, padding="same", stride=(1, 1)):
                               ws:ws + kw,
                               :] += W[:, :, :, c] * dZ[i, h, w, c]
                     dW[:, :, :, c] += A_prev_pad[i,
-                                                     hs:hs + kh,
-                                                     ws:ws + kw,
-                                                     :] * dZ[i, h,
-                                                             w, c]
+                                                 hs:hs + kh,
+                                                 ws:ws + kw,
+                                                 :] * dZ[i, h,
+                                                         w, c]
 
     if padding == "same":
         dA = dA_padded[:, ph:-ph, pw:-pw, :]
