@@ -12,7 +12,7 @@ def lenet5(x, y):
     builds a modified version of the
     LeNet-5 architecture using tensorflow:
 
-    x: is a tf.placeholder of shape (m, 28, 28, 1) 
+    x: is a tf.placeholder of shape (m, 28, 28, 1)
     containing the input images for the network
         *m is the number of images
 
@@ -28,11 +28,11 @@ def lenet5(x, y):
         -Fully connected layer with 84 nodes
         -Fully connected softmax output layer with 10 nodes
 
-    All layers requiring initialization should initialize 
+    All layers requiring initialization should initialize
     their kernels with the he_normal initialization method:
     tf.contrib.layers.variance_scaling_initializer()
 
-    All hidden layers requiring activation should use 
+    All hidden layers requiring activation should use
     he relu activation function
 
     you may import tensorflow as tf
@@ -41,7 +41,8 @@ def lenet5(x, y):
 
     Returns:
         -a tensor for the softmax activated output
-        -a training operation that utilizes Adam optimization (with default hyperparameters)
+        -a training operation that utilizes Adam optimization
+        (with default hyperparameters)
         -a tensor for the loss of the netowrk
         -a tensor for the accuracy of the network
     """
