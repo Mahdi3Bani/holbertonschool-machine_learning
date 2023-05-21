@@ -49,14 +49,16 @@ def lenet5(x, y):
     # Convolutional layer with 6 kernels of shape 5x5 with same padding
     conv1 = tf.layers.conv2d(x, filters=6, kernel_size=5, padding='same',
                              activation=tf.nn.relu,
-                             kernel_initializer=tf.contrib.layers.variance_scaling_initializer())
+                             kernel_initializer=tf.contrib.
+                             layers.variance_scaling_initializer())
     # Max pooling layer with kernels of shape 2x2 with 2x2 strides
     pool1 = tf.layers.max_pooling2d(conv1, pool_size=2, strides=2)
 
     # Convolutional layer with 16 kernels of shape 5x5 with valid padding
     conv2 = tf.layers.conv2d(pool1, filters=16, kernel_size=5, padding='valid',
                              activation=tf.nn.relu,
-                             kernel_initializer=tf.contrib.layers.variance_scaling_initializer())
+                             kernel_initializer=tf.contrib.
+                             layers.variance_scaling_initializer())
     # Max pooling layer with kernels of shape 2x2 with 2x2 strides
     pool2 = tf.layers.max_pooling2d(conv2, pool_size=2, strides=2)
 
@@ -65,24 +67,29 @@ def lenet5(x, y):
 
     # Fully connected layer with 120 nodes
     fc1 = tf.layers.dense(flatten, units=120, activation=tf.nn.relu,
-                          kernel_initializer=tf.contrib.layers.variance_scaling_initializer())
+                          kernel_initializer=tf.contrib.
+                          layers.variance_scaling_initializer())
 
     # Fully connected layer with 84 nodes
     fc2 = tf.layers.dense(fc1, units=84, activation=tf.nn.relu,
-                          kernel_initializer=tf.contrib.layers.variance_scaling_initializer())
+                          kernel_initializer=tf.contrib.
+                          layers.variance_scaling_initializer())
 
     # Fully connected softmax output layer with 10 nodes
     logits = tf.layers.dense(fc2, units=10,
-                             kernel_initializer=tf.contrib.layers.variance_scaling_initializer())
+                             kernel_initializer=tf.contrib.
+                             layers.variance_scaling_initializer())
 
     # Softmax activated output
     softmax_output = tf.nn.softmax(logits)
 
     # Loss function
-    loss = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(labels=y, logits=logits))
+    loss = tf.reduce_mean(
+        tf.nn.softmax_cross_entropy_with_logits(labels=y, logits=logits))
 
     # Accuracy
-    correct_prediction = tf.equal(tf.argmax(softmax_output, 1), tf.argmax(y, 1))
+    correct_prediction = tf.equal(
+        tf.argmax(softmax_output, 1), tf.argmax(y, 1))
     accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
 
     # Training operation
