@@ -38,7 +38,6 @@ def projection_block(A_prev, filters, s=2):
                                   padding="same")(activation)
 
     prblock_1_2x = projection_block(pool0, [64, 64, 256], s=1)
-
     idblock_1_2x = identity_block(prblock_1_2x, [64, 64, 256])
     idblock_2_2x = identity_block(idblock_1_2x, [64, 64, 256])
 
@@ -62,10 +61,10 @@ def projection_block(A_prev, filters, s=2):
                               strides=(1, 1),
                               padding="valid")(idblock_2_5x)
 
-    dense_output = K.layers.Dense(units=1000,
-                                  activation="softmax",
-                                  kernel_initializer=init)(pool)
+    dense_layer = K.layers.Dense(units=1000,
+                                 activation="softmax",
+                                 kernel_initializer=init)(pool)
 
-    model = K.models.Model(inputs=input_layer, outputs=dense_output)
+    model = K.models.Model(inputs=input_layer, outputs=dense_layer)
 
     return model
