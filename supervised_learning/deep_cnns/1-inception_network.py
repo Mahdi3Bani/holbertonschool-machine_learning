@@ -1,14 +1,22 @@
 #!/usr/bin/env python3
 """Inception Block"""
 
-import keras as K
-from keras.layers import Input
+import tensorflow.keras as K
 inception_block = __import__('0-inception_block').inception_block
 
 
 def inception_network():
+    """Write a function def inception_network():
+    that builds the inception network as described in Going
+    Deeper with Convolutions (2014):
+
+        You can assume the input data will have shape (224, 224, 3)
+        All convolutions inside and outside the inception block should
+        use a rectified linear activation (ReLU)
+        You may use inception_block = __import__('0-inception_block').inception_block
+        Returns: the keras model"""
     input_shape = (224, 224, 3)
-    input_layer = Input(shape=input_shape)
+    input_layer = K.Input(shape=input_shape)
 
     # First conv layer
     conv1 = K.layers.Conv2D(filters=64,
