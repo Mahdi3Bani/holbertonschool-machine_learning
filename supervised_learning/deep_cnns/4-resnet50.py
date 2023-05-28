@@ -58,6 +58,6 @@ def resnet50():
                                strides=(1, 1),
                                padding="valid")(idblock_2_5x)
     dense_layer = K.layers.Dense(units=1000,
-                             activation="softmax",
-                             kernel_initializer=init)(pool1)
+                                 activation="softmax",
+                                 kernel_initializer=init)(pool1)
     return K.models.Model(inputs=input_layer, outputs=dense_layer)
