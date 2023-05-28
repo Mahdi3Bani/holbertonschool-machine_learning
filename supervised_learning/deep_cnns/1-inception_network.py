@@ -15,8 +15,7 @@ def inception_network():
         use a rectified linear activation (ReLU)
         You may use inception_block = __import__('0-inception_block').inception_block
         Returns: the keras model"""
-    input_shape = (224, 224, 3)
-    input_layer = K.Input(shape=input_shape)
+    input_layer = K.layers.Input(shape=(224, 224, 3))
 
     # First conv layer
     conv1 = K.layers.Conv2D(filters=64,
