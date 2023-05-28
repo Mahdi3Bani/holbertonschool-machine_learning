@@ -18,9 +18,6 @@ def projection_block(A_prev, filters, s=2):
         followed by batch normalization along the channels axis and a
         rectified linear activation (ReLU), respectively.
         *All weights should use he normal initialization
-        *You may use:
-            -identity_block = __import__('2-identity_block').identity_block
-            -projection_block = __import__('3-projection_block').projection_block
     Returns: the keras model
 """
     init = K.initializers.he_normal()
