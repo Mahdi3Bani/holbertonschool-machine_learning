@@ -69,6 +69,6 @@ def projection_block(A_prev, filters, s=2):
                                   activation="softmax",
                                   kernel_initializer=init)(pool)
 
-    model = K.models.Model(inputs=input, outputs=dense_output)
+    model = K.models.Model(inputs=input_layer, outputs=dense_output)
 
     return model
