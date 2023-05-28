@@ -8,7 +8,7 @@ identity_block = __import__('2-identity_block').identity_block
 projection_block = __import__('3-projection_block').projection_block
 
 
-def projection_block(A_prev, filters, s=2):
+def resnet50():
     """Write a function def resnet50():
     that builds the ResNet-50 architecture as
     described in Deep Residual Learning for Image Recognition (2015):
