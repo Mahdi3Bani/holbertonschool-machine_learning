@@ -18,31 +18,29 @@ def determinant(matrix):
 
         Returns: the determinant of matrix
     """
-    if not isinstance(matrix, list) or len (matrix) == 0:
+    if not isinstance(matrix, list) or len(matrix) == 0:
         raise TypeError("matrix must be a list of lists")
-    for mat in matrix:
-        if not isinstance(mat, list):
+    for sub_list in matrix:
+        if not isinstance(sub_list, list):
             raise TypeError("matrix must be a list of lists")
 
-    rows = len(matrix)
-    cols = len(matrix[0])
+    if len(matrix[0]) == 0:
+        return 1
 
     if len(matrix) != len(matrix[0]):
         raise ValueError("matrix must be a square matrix")
-    
-    if matrix == [[]]:
-        return 1
-    
+
     if len(matrix) == 1:
         return matrix[0][0]
+
     
-    if rows == 2:
+    if len(matrix) == 2:
         det = matrix[0][0] * matrix[1][1]  - matrix[1][0] * matrix[0][1]
         return det
     else:
         det = 0
         sign = 1
-        for i in range(cols):
+        for i in range(len(matrix[0])):
             mat = []
             for row in matrix[1:]:
                 new_row = []
