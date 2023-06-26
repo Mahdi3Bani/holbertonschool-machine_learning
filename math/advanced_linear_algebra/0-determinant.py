@@ -27,8 +27,8 @@ def determinant(matrix):
     rows = len(matrix)
     cols = len(matrix[0])
 
-    if rows != cols:
-        ValueError("matrix must be a square matrix")
+    if len(matrix) != len(matrix[0]):
+        raise ValueError("matrix must be a square matrix")
     
     if matrix == [[]]:
         return 1
