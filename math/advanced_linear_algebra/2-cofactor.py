@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-"""minor matrix of a matrix"""
+"""cofactor matrix of a matrix"""
 determinant = __import__('0-determinant').determinant
 
 
 def cofactor(matrix):
-    """calculates the minor matrix of a matrix:
+    """calculates the cofactor matrix of a matrix:
 
-        matrix is a list of lists whose minor matrix
+        matrix is a list of lists whose cofactor matrix
         should be calculated
 
         If matrix is not a list of lists, raise a
@@ -17,7 +17,7 @@ def cofactor(matrix):
         ValueError with the message matrix must be a
         non-empty square matrix
 
-        Returns: the minor matrix of matrix
+        Returns: the cofactor matrix of matrix
     """
 
     if not isinstance(matrix, list) or len(matrix) == 0:
