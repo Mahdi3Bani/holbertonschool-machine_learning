@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """minor matrix of a matrix"""
+determinant = __import__('0-determinant').determinant
 
 
 def minor(matrix):
@@ -49,15 +50,3 @@ def minor(matrix):
         minors_mat.append(minors_row)
 
     return minors_mat
-
-
-def determinant(matrix):
-    if len(matrix) == 1:
-        return matrix[0][0]
-    elif len(matrix) == 2:
-        return matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0]
-    det = 0
-    for j in range(len(matrix[0])):
-        sub_matrix = [row[1:] for row in matrix[1:]]
-        det += (-1) ** j * matrix[0][j] * determinant(sub_matrix)
-        return det
