@@ -16,6 +16,7 @@ if __name__ == '__main__':
     print(determinant(mat2))
     print(determinant(mat3))
     print(determinant(mat4))
+    
     try:
         determinant(mat5)
     except Exception as e:

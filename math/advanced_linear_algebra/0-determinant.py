@@ -31,6 +31,7 @@ def determinant(matrix):
         raise ValueError("matrix must be a square matrix")
     for i in matrix:
         if len(i) != len(matrix):
+
             raise ValueError("matrix must be a square matrix")
 
     if len(matrix) == 1:
