@@ -33,9 +33,8 @@ def determinant(matrix):
     if len(matrix) == 1:
         return matrix[0][0]
 
-    
     if len(matrix) == 2:
-        det = matrix[0][0] * matrix[1][1]  - matrix[1][0] * matrix[0][1]
+        det = matrix[0][0] * matrix[1][1] - matrix[1][0] * matrix[0][1]
         return det
     det = 0
     sign = 1
@@ -50,6 +49,3 @@ def determinant(matrix):
         det += sign * matrix[0][i] * determinant(mat)
         sign *= -1
     return det
-   
-
-
