@@ -29,13 +29,15 @@ def determinant(matrix):
 
     if len(matrix) != len(matrix[0]):
         raise ValueError("matrix must be a square matrix")
+    for i in matrix:
+        if len(i) != len(matrix):
+            raise ValueError("matrix must be a square matrix")
 
     if len(matrix) == 1:
         return matrix[0][0]
 
-    
     if len(matrix) == 2:
-        det = matrix[0][0] * matrix[1][1]  - matrix[1][0] * matrix[0][1]
+        det = matrix[0][0] * matrix[1][1] - matrix[1][0] * matrix[0][1]
         return det
     det = 0
     sign = 1
@@ -44,12 +46,9 @@ def determinant(matrix):
         for row in matrix[1:]:
             new_row = []
             for j in range(len(matrix[0])):
-                if j != 1:
+                if j != i:
                     new_row.append(row[j])
             mat.append(new_row)
         det += sign * matrix[0][i] * determinant(mat)
         sign *= -1
     return det
-   
-
-
