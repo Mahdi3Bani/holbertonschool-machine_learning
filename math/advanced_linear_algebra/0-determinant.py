@@ -37,17 +37,16 @@ def determinant(matrix):
     if len(matrix) == 2:
         det = matrix[0][0] * matrix[1][1]  - matrix[1][0] * matrix[0][1]
         return det
-    else:
-        det = 0
-        sign = 1
-        for i in range(len(matrix[0])):
-            mat = []
-            for row in matrix[1:]:
-                new_row = []
-                for j in range(len(row)):
-                    if j != 1:
-                        new_row.append(row[j])
-                mat.append(new_row)
+    det = 0
+    sign = 1
+    for i in range(len(matrix[0])):
+        mat = []
+        for row in matrix[1:]:
+            new_row = []
+            for j in range(len(matrix[0])):
+                if j != i:
+                    new_row.append(row[j])
+            mat.append(new_row)
         det += sign * matrix[0][i] * determinant(mat)
         sign *= -1
     return det
