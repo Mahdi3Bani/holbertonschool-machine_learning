@@ -15,7 +15,7 @@ def definiteness(matrix):
         with the message matrix must be a numpy.ndarray
 
         If matrix is not a valid matrix, return None
-        
+
         Return: the string Positive definite, Positive
         semi-definite, Negative semi-definite, Negative definite,
         or Indefinite if the matrix is positive definite, positive
