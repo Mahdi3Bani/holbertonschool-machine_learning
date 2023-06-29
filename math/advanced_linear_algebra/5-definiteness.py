@@ -30,6 +30,9 @@ def definiteness(matrix):
     if matrix.ndim != 2 or matrix.shape[0] != matrix.shape[1]:
         return None
 
+    if not np.all(np.transpose(matrix) == matrix):
+        return None
+
     eigenvalues = np.linalg.eigvals(matrix)
     positive_eigenvalues = np.sum(eigenvalues > 0)
     zero_eigenvalues = np.sum(eigenvalues == 0)
