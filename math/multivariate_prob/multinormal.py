@@ -35,4 +35,32 @@ class MultiNormal:
 
         self.mean = np.mean(data, axis=1, keepdims=True)
         centered = data - self.mean
-        self.cov = np.dot(centered, centered.T) / (n - 1)
+        self.cov = np.matmul(centered, centered.T) / (n - 1)
+
+    def pdf(self, x):
+        '''
+        calculates the PDF at a data point:
+            *x is a numpy.ndarray of shape (d, 1) containing the
+            data point whose PDF should be calculated
+                -d is the number of dimensions of the Multinomial instance
+
+            *If x is not a numpy.ndarray, raise a TypeError with
+            the message x must be a numpy.ndarray
+
+            *If x is not of shape (d, 1), raise a ValueError with the
+            message x must have the shape ({d}, 1)
+
+        Returns the value of the PDF
+        '''
+        if not isinstance(x, np.ndarray):
+            raise TypeError("x must be a numpy.ndarray")
+
+        if x.shape != self.mean.shape:
+            raise ValueError(f"x must have the shape {self.mean.shape}")
+
+        d = self.mean.shape[0]
+        centered = x - self.mean
+        exponent = -0.5 * np.matmul(np.matmul(centered.T, np.linalg.inv(self.cov)), centered)
+        normalization = np.sqrt((2 * np.pi) ** d * np.linalg.det(self.cov))
+
+        return (1 / normalization) * np.exp(exponent)
