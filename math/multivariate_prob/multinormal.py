@@ -34,7 +34,7 @@ class MultiNormal:
         if n < 2:
             raise ValueError("data must contain multiple data points")
 
-        data = data - self.mean
+        data = data
         self.mean, self.cov = mean_cov(self.data)
 
     def pdf(self, x):
