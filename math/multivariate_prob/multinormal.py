@@ -3,6 +3,7 @@
 
 
 import numpy as np
+mean_cov = __import__('0-mean_cov').mean_cov
 
 
 class MultiNormal:
@@ -33,9 +34,8 @@ class MultiNormal:
         if n < 2:
             raise ValueError("data must contain multiple data points")
 
-        self.mean = np.mean(data, axis=1, keepdims=True)
-        centered = data - self.mean
-        self.cov = np.matmul(centered, centered.T) / (n - 1)
+        data = data - self.mean
+        self.mean, self.cov = mean_cov(self.data)
 
     def pdf(self, x):
         '''
@@ -56,7 +56,7 @@ class MultiNormal:
             raise TypeError("x must be a numpy.ndarray")
 
         if x.shape != self.mean.shape:
-            raise ValueError(f"x must have the shape {self.mean.shape}")
+             raise ValueError('x must have the shape ({}, 1)'.format(d))
 
         d = self.mean.shape[0]
         centered = x - self.mean
