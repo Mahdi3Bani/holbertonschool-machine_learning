@@ -34,8 +34,9 @@ class MultiNormal:
         if n < 2:
             raise ValueError("data must contain multiple data points")
 
-        self.data = data
-        self.mean, self.cov = mean_cov(self.data)
+        mean, cov = mean_cov(data.T)
+        self.mean = mean.T
+        self.cov = cov
 
     def pdf(self, x):
         '''
@@ -55,10 +56,11 @@ class MultiNormal:
         if not isinstance(x, np.ndarray):
             raise TypeError("x must be a numpy.ndarray")
 
-        if x.shape != (self.cov.shape[0], 1):
-             raise ValueError('x must have the shape ({}, 1)'.format(self.cov.shape[0]))
+        if len(x.shape) != 2 or x.shape != (self.cov.shape[0], 1):
+            raise ValueError(
+                'x must have the shape ({}, 1)'.format(self.cov.shape[0]))
 
-        pdf = (1 / np.sqrt(((2 * np.pi) **  self.cov.shape[0]) * np.linalg.det(self.cov)) *
+        pdf = (1 / np.sqrt(((2 * np.pi) ** self.cov.shape[0]) * np.linalg.det(self.cov)) *
                np.exp(-(np.linalg.solve(self.cov, x - self.mean).
                         T.dot(x - self.mean)) / 2))
 
