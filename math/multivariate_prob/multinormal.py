@@ -55,12 +55,11 @@ class MultiNormal:
         if not isinstance(x, np.ndarray):
             raise TypeError("x must be a numpy.ndarray")
 
-        if x.shape != (self.mean.shape[0], 1):
-             raise ValueError('x must have the shape ({}, 1)'.format(self.mean.shape[0]))
+        if x.shape != (self.cov.shape[0], 1):
+             raise ValueError('x must have the shape ({}, 1)'.format(self.cov.shape[0]))
 
-        d = self.mean.shape[0]
-        centered = x - self.mean
-        exponent = -0.5 * np.matmul(np.matmul(centered.T, np.linalg.inv(self.cov)), centered)
-        normalization = np.sqrt((2 * np.pi) ** d * np.linalg.det(self.cov))
+        pdf = (1 / np.sqrt(((2 * np.pi) **  self.cov.shape[0]) * np.linalg.det(self.cov)) *
+               np.exp(-(np.linalg.solve(self.cov, x - self.mean).
+                        T.dot(x - self.mean)) / 2))
 
-        return (1 / normalization) * np.exp(exponent)
+        return pdf[0][0]
