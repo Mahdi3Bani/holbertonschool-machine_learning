@@ -60,7 +60,8 @@ class MultiNormal:
             raise ValueError(
                 'x must have the shape ({}, 1)'.format(self.cov.shape[0]))
 
-        pdf = (1 / np.sqrt(((2 * np.pi) ** self.cov.shape[0]) * np.linalg.det(self.cov)) *
+        pdf = (1 / np.sqrt(((2 * np.pi) ** self.cov.shape[0]) *
+                           np.linalg.det(self.cov)) *
                np.exp(-(np.linalg.solve(self.cov, x - self.mean).
                         T.dot(x - self.mean)) / 2))
 
