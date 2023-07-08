@@ -2,8 +2,16 @@
 '''Likelihood'''
 
 import numpy as np
-import math
 
+
+def comb(n, k):
+        """comb function"""
+        if not 0 <= k <= n:
+            return 0
+        c = 1
+        for i in range(k):
+            c = c * (n - i) // (i + 1)
+        return c
 
 def likelihood(x, n, P):
     """comment"""
@@ -25,6 +33,6 @@ def likelihood(x, n, P):
         raise ValueError("All values in P must be in the range [0, 1]")
 
     likelihoods = np.array(
-        [math.comb(n, x) * p**x * (1-p)**(n-x) for p in P])
+        [comb(n, x) * p**x * (1-p)**(n-x) for p in P])
 
     return likelihoods
