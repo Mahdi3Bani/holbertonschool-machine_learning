@@ -2,6 +2,7 @@
 '''Likelihood'''
 
 import numpy as np
+import math
 
 
 def likelihood(x, n, P):
@@ -24,6 +25,6 @@ def likelihood(x, n, P):
         raise ValueError("All values in P must be in the range [0, 1]")
 
     likelihoods = np.array(
-        [np.math.comb(n, x) * p**x * (1-p)**(n-x) for p in P])
+        [math.comb(n, x) * p**x * (1-p)**(n-x) for p in P])
 
     return likelihoods
