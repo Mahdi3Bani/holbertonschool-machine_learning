@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 '''Likelihood'''
 
+from scipy import special
 import numpy as np
 
 
@@ -143,8 +144,6 @@ def posterior(x, n, P, Pr):
         raise ValueError("Pr must sum to 1")
 
     return intersection(x, n, P, Pr) / marginal(x, n, P, Pr)
-
-from scipy import special
 
 
 def posterior(x, n, p1, p2):
