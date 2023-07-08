@@ -5,13 +5,14 @@ import numpy as np
 
 
 def comb(n, k):
-        """comb function"""
-        if not 0 <= k <= n:
-            return 0
-        c = 1
-        for i in range(k):
-            c = c * (n - i) // (i + 1)
-        return c
+    """comb function"""
+    if not 0 <= k <= n:
+        return 0
+    c = 1
+    for i in range(k):
+        c = c * (n - i) // (i + 1)
+    return c
+
 
 def likelihood(x, n, P):
     """comment"""
