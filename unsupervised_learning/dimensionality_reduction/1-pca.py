@@ -7,10 +7,10 @@ import numpy as np
 
 def pca(X, ndim):
     """comment"""
-    X_n = X - np.mean(X)
+    X_n = X - np.mean(X, axis=0)
 
     _, _, vh = np.linalg.svd(X_n)
 
     W = vh.T[:, :ndim]
 
-    return np.matmul(X_n, W)
+    return np.dot(X_n, W)
