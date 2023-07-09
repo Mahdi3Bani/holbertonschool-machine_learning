@@ -13,5 +13,4 @@ def pca(X, ndim):
 
     W = vh.T[:, :ndim]
 
-    return np.dot(X_n, W)
-
+    return np.matmul(X_n, W)
