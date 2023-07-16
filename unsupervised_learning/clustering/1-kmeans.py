@@ -1,4 +1,4 @@
-#!/usr/bin/node
+#!/usr/bin/env python3
 """comment"""
 
 import numpy as np
