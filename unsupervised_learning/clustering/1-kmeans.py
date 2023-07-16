@@ -6,7 +6,7 @@ import numpy as np
 
 def kmeans(X, k, iterations=1000):
     '''comment'''
-    if iterations < 1:
+    if iterations < 1 or not isinstance(iterations, int):
         return None, None
     if not isinstance(k, int) or k <= 0:
         return None, None
