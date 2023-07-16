@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/node
 """comment"""
 
 import numpy as np
@@ -6,13 +6,15 @@ import numpy as np
 
 def kmeans(X, k, iterations=1000):
     '''comment'''
+    if iterations < 1:
+        return None, None
     if not isinstance(k, int) or k <= 0:
-        return None
+        return None, None
     if not isinstance(X, np.ndarray) or X.ndim != 2:
-        return None
+        return None, None
     n, d = X.shape
     if n < k:
-        return None
+        return None, None
 
     min_values = np.min(X, axis=0)
     max_values = np.max(X, axis=0)
