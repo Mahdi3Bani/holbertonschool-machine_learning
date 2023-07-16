@@ -46,5 +46,5 @@ def kmeans(X, k, iterations=1000):
                 C[i] = initialize(X, 1)
 
         if np.allclose(C, prev_C):
-            return C, clss
+            break
     return C, clss
