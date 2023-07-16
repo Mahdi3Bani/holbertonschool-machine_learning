@@ -5,6 +5,7 @@ import numpy as np
 
 
 def variance(X, C):
+    '''comment'''
     if not isinstance(X, np.ndarray) or X.ndim != 2:
         return None
 
