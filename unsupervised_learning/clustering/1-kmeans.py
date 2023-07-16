@@ -24,14 +24,11 @@ def initialize(X, k):
 def kmeans(X, k, iterations=1000):
     '''comment'''
 
-    if not isinstance(iterations, int) or iterations < 1:
+    if not isinstance(iterations, int) or iterations <= 0:
         return None, None
     if not isinstance(k, int) or k <= 0:
         return None, None
     if not isinstance(X, np.ndarray) or X.ndim != 2:
-        return None, None
-    n, d = X.shape
-    if n < k:
         return None, None
 
     C = initialize(X, k)
@@ -50,5 +47,4 @@ def kmeans(X, k, iterations=1000):
 
         if np.allclose(C, prev_C):
             return C, clss
-
-    return None, None
+    return C, clss
