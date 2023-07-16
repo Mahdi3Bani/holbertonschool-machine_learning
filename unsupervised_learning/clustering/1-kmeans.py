@@ -44,7 +44,8 @@ def kmeans(X, k, iterations=1000):
                 C[i] = np.mean(X[clss == i], axis=0)
             else:
                 C[i] = initialize(X, 1)
-
+        dists = np.sqrt(np.sum((X - C[:, np.newaxis]) ** 2, axis=2))
+        clss = np.argmin(dists, axis=0)
         if np.all(C == prev_C):
             break
     return C, clss
