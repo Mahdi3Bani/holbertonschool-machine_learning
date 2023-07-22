@@ -16,9 +16,10 @@ def regular(P):
 
     eigenvalues, eigenvectors = np.linalg.eig(P.T)
     index = np.where(np.isclose(eigenvalues, 1.0))[0]
-    
+
     if len(index) != 1:
         return None
 
-    steady_state_probabilities = np.real(eigenvectors[:, index] / np.sum(eigenvectors[:, index]))
+    steady_state_probabilities = np.real(
+        eigenvectors[:, index] / np.sum(eigenvectors[:, index]))
     return steady_state_probabilities.flatten()
