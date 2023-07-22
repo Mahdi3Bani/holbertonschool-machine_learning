@@ -6,6 +6,7 @@ import numpy as np
 
 
 def regular(P):
+    """comment"""
     n = P.shape[0]
 
     if n != P.shape[1]:
