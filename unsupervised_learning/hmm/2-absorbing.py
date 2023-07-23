@@ -7,7 +7,8 @@ import numpy as np
 
 def absorbing(P):
     """comment"""
-    if not isinstance(P, np.ndarray) or P.ndim != 2 or P.shape[0] != P.shape[1]:
+    if not isinstance(P, np.ndarray) or P.ndim != 2\
+        or P.shape[0] != P.shape[1]:
         return None
 
     if not (np.all(P >= 0) and np.all(P <= 1)):
