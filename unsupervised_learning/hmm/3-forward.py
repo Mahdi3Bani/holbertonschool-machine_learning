@@ -5,6 +5,7 @@ import numpy as np
 
 
 def forward(Observation, Emission, Transition, Initial):
+    '''comment'''
     if not isinstance(Observation, np.ndarray) or Observation.ndim != 1:
         return None, None
 
