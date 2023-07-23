@@ -19,8 +19,8 @@ def backward(Observation, Emission, Transition, Initial):
 
     for t in range(T - 2, -1, -1):
         for i in range(N):
-            probabilities = Transition[i, :] * Emission[:,
-                            Observation[t + 1]] * backward_matrix[:, t + 1]
+            probabilities = Transition[i, :] *\
+                Emission[:, Observation[t + 1]] * backward_matrix[:, t + 1]
             backward_matrix[i, t] = np.sum(probabilities)
 
     P = np.sum(Initial.reshape(-1) *
