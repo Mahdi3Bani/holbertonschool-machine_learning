@@ -6,6 +6,7 @@ import numpy as np
 
 
 def backward(Observation, Emission, Transition, Initial):
+    '''comment'''
     T = Observation.shape[0]
     N, M = Emission.shape
 
@@ -18,9 +19,11 @@ def backward(Observation, Emission, Transition, Initial):
 
     for t in range(T - 2, -1, -1):
         for i in range(N):
-            probabilities = Transition[i, :] * Emission[:, Observation[t + 1]] * backward_matrix[:, t + 1]
+            probabilities = Transition[i, :] * Emission[:,
+                                                        Observation[t + 1]] * backward_matrix[:, t + 1]
             backward_matrix[i, t] = np.sum(probabilities)
 
-    P = np.sum(Initial.reshape(-1) * Emission[:, Observation[0]] * backward_matrix[:, 0])
+    P = np.sum(Initial.reshape(-1) *
+               Emission[:, Observation[0]] * backward_matrix[:, 0])
 
     return P, backward_matrix
