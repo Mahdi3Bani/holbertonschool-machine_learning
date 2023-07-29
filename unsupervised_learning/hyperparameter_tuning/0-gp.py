@@ -16,6 +16,7 @@ class GaussianProcess:
         self.K = self.kernel(X_init, X_init)
 
     def kernel(self, X1, X2):
+        '''comment'''
 
         sq_dist = np.sum(X1 ** 2, 1).reshape(-1, 1) +\
             np.sum(X2 ** 2, 1) - 2 * np.matmul(X1, X2.T)
