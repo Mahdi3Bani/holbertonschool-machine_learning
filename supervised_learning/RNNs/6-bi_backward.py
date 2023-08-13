@@ -32,13 +32,14 @@ class BidirectionalCell:
         return np.exp(z) / np.sum(np.exp(z), axis=1, keepdims=True)
 
     def forward(self, h_prev, x_t):
-        '''forward prog'''
+        '''forward propagation'''
         concat_x = np.concatenate((h_prev, x_t), axis=1)
 
         h_next = np.tanh(np.dot(concat_x, self.Whf) + self.bhf)
         return h_next
-    
+
     def backward(self, h_next, x_t):
+        '''backward propagation'''
         x = np.concatenate((h_next, x_t), axis=1)
 
         h_prev = np.tanh(np.dot(x, self.Whb) + self.bhb)
