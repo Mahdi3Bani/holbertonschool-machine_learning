@@ -9,10 +9,10 @@ def deep_rnn(rnn_cells, X, h_0):
     '''performs forward propagation for a  deep_rnn'''
     t, m, i = X.shape
     l = len(rnn_cells)
-    _ ,_, h = h_0.shape
+    _, _, h = h_0.shape
 
     H = np.zeros((t + 1, l, m, h))
-    Y =[]
+    Y = []
 
     H[0] = h_0
 
