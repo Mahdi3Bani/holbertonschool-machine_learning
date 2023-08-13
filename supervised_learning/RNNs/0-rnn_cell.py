@@ -24,6 +24,7 @@ class RNNCell:
         return np.exp(z) / np.sum(np.exp(z), axis=1, keepdims=True)
 
     def forward(self, h_prev, x_t):
+        '''forward prog'''
         concat_input = np.concatenate((h_prev, x_t), axis=1)
         h_next = np.tanh(np.dot(concat_input, self.Wh) + self.bh)
         y = self.softmax(np.dot(h_next, self.Wy) + self.by)
