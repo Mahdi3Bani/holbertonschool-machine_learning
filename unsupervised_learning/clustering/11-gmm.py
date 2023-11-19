@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 """calculates a GMM from a dataset"""
-from sklearn.mixture import GaussianMixture
+import sklearn.mixture
 
 
 def gmm(X, k):
     """calculates a GMM from a dataset"""
-    gmm = GaussianMixture(n_components=k).fit(X)
+    gmm = sklearn.mixture.GaussianMixture(n_components=k).fit(X)
     pi = gmm.weights_
     m = gmm.means_
     S = gmm.covariances_
