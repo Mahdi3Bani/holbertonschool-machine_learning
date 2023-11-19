@@ -4,6 +4,7 @@ import sklearn.cluster
 
 
 def kmeans(X, k):
+    """performs K-means on a dataset"""
 
     kmeans = sklearn.cluster.KMeans(n_clusters=k).fit(X)
     centroids = kmeans.cluster_centers_
