@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
-
+"""1-sentience"""
 import requests
 import json
 
 
 def sentientPlanets():
+    """sentientPlanets"""
     planets = []
     url = "https://swapi-api.hbtn.io/api/species"
     

@@ -1,8 +1,11 @@
+#!/usr/bin/env python3
+"""user location"""
 import sys
 import requests
 import time
 
 def get_user_location(user_url):
+    '''get_user_location'''
     response = requests.get(user_url)
 
     if response.status_code == 404:
