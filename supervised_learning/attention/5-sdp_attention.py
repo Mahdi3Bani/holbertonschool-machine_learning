@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
-import tensorflow as tf
 """
 sdp attention
 """
+
+import tensorflow as tf
 
 
 def sdp_attention(Q, K, V, mask=None):
