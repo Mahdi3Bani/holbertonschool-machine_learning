@@ -5,7 +5,6 @@
 import numpy as np
 
 
-
 def positional_encoding(max_seq_len, dm):
     """positional encodin"""
     positional_encoding_matrix = np.zeros((max_seq_len, dm))
