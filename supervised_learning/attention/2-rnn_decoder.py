@@ -2,8 +2,6 @@
 '''rnn decoder class'''
 
 import tensorflow as tf
-from tensorflow.keras.layers import Embedding, GRU, Dense
-from tensorflow.keras.initializers import glorot_uniform
 
 
 class RNNDecoder(tf.keras.layers.Layer):
@@ -16,10 +14,10 @@ class RNNDecoder(tf.keras.layers.Layer):
         self.units = units
         self.batch = batch
 
-        self.embedding = Embedding(input_dim=self.vocab_size, output_dim=self.embedding_dim)
-        self.gru = GRU(units=self.units, return_sequences=True, return_state=True,
-                       recurrent_initializer=glorot_uniform())
-        self.F = Dense(units=self.vocab_size)
+        self.embedding = tf.keras.layers.Embedding(input_dim=self.vocab_size, output_dim=self.embedding_dim)
+        self.gru = tf.keras.layers.GRU(units= self.units, return_sequences=True, return_state=True,
+                       recurrent_initializer= tf.keras.initializers.glorot_uniform())
+        self.F = tf.keras.layers.Dense(units= self.vocab_size)
 
 
     def call(self, x, s_prev, hidden_states):
