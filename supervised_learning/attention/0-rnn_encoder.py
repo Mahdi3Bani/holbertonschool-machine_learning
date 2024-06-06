@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
-"""rnn encoder class"""
-
+"""RNN Encoder class"""
 
 import tensorflow as tf
 
+
 class RNNEncoder(tf.keras.layers.Layer):
-    '''enn encoder class'''
+    """RNN Encoder class"""
+
     def __init__(self, vocab, embedding, units, batch):
-        '''init function'''
+        """init func"""
         super(RNNEncoder, self).__init__()
         self.batch = batch
         self.units = units
@@ -18,14 +19,14 @@ class RNNEncoder(tf.keras.layers.Layer):
                                        return_state=True,
                                        recurrent_initializer='glorot_uniform')
 
-
     def initialize_hidden_state(self):
-        '''initialize hidden layers to 0'''
+        """Initialize hidden layers to 0
+        """
         return tf.zeros((self.batch, self.units))
 
-
     def call(self, x, initial):
-        """forward pass through the layers"""
+        """Forward pass through the layers.
+        """
         x = self.embedding(x)
         outputs, hidden = self.gru(x, initial_state=initial)
         return outputs, hidden

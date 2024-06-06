@@ -1,17 +1,16 @@
 #!/usr/bin/env python3
-"""
-multihead attention"""
-
+"""Multi-head Attention class."""
 
 import tensorflow as tf
 sdp_attention = __import__('5-sdp_attention').sdp_attention
 
 
 class MultiHeadAttention(tf.keras.layers.Layer):
-    """multi head attention"""
+    """Multi-head attention class."""
 
     def __init__(self, dm, h):
-        """init function"""
+        """init func
+        """
         super(MultiHeadAttention, self).__init__()
         self.h = h
         if dm % h != 0:
@@ -23,16 +22,16 @@ class MultiHeadAttention(tf.keras.layers.Layer):
         self.Wv = tf.keras.layers.Dense(dm)
         self.linear = tf.keras.layers.Dense(dm)
 
-
     def reshape(self, x, batch):
-        """reshape inputs"""
+        """Reshape inputs.
+        """
         x = tf.reshape(x, (batch, -1, self.h, self.depth))
         x = tf.transpose(x, perm=[0, 2, 1, 3])
         return x
 
-
     def call(self, Q, K, V, mask):
-        """call function"""
+        """Forward pass through the layers
+        """
         batch = tf.shape(Q)[0]
         q = self.Wq(Q)
         k = self.Wk(K)
