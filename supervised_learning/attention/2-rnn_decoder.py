@@ -2,37 +2,33 @@
 '''rnn decoder class'''
 
 import tensorflow as tf
+SelfAttention = __import__('1-self_attention').SelfAttention
 
 
 class RNNDecoder(tf.keras.layers.Layer):
-    '''RNN decoder'''
+    """rnn decoder"""
+
     def __init__(self, vocab, embedding, units, batch):
-        """init function"""
-        super(RNNDecoder, self).__init__()
-        self.vocab_size = vocab
-        self.embedding_dim = embedding
-        self.units = units
+        """Init function"""
+        super().__init__()
+
+        self.embedding = tf.keras.layers.Embedding(vocab, embedding)
+        self.gru = tf.keras.layers.GRU(units, return_state=True,
+                                       return_sequences=True,
+                                       recurrent_initializer='glorot_uniform')
+        self.F = tf.keras.layers.Dense(vocab)
         self.batch = batch
-
-        self.embedding = tf.keras.layers.Embedding(input_dim=self.vocab_size, output_dim=self.embedding_dim)
-        self.gru = tf.keras.layers.GRU(units= self.units, return_sequences=True, return_state=True,
-                       recurrent_initializer= tf.keras.initializers.glorot_uniform())
-        self.F = tf.keras.layers.Dense(units= self.vocab_size)
-
+        self.units = units
+        self.attention = SelfAttention(self.units)
 
     def call(self, x, s_prev, hidden_states):
-        '''create an embedding vector with embedding layers
-        then pass embedding vector to GRU layer'''
+        """comment"""
+        context, _ = self.attention(s_prev, hidden_states)
         x = self.embedding(x)
-        attention = SelfAttention(self.units)
-        context, weights = attention(s_prev, hidden_states)
-
-        x = tf.concat([tf.expand_dims(context, 1), x], axis=-1)
-
-        output, state = self.gru(x)
-
-        output = tf.reshape(output, (-1, output.shape[2]))
-
-        output = self.F(output)
-
-        return output, state
+        context = tf.expand_dims(context, 1)
+        X = tf.concat([tf.cast(context, dtype=tf.float32),
+                      tf.cast(x, dtype=tf.float32)], axis=-1)
+        y, hidden = self.gru(X)
+        Y = tf.reshape(y, (-1, y.shape[2]))
+        Y = self.F(Y)
+        return Y, hidden
