@@ -4,7 +4,7 @@ evaluates the output of a neural network:
 """
 
 
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
 
 
 def evaluate(X, Y, save_path):
