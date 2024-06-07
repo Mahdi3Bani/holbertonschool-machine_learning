@@ -1,4 +1,4 @@
-usr/bin/env python3
+#!/usr/bin/env python3
 """Resnet50."""
 import tensorflow.keras as K
 identity_block = __import__('2-identity_block').identity_block
