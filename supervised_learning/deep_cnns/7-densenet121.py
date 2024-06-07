@@ -42,7 +42,3 @@ def densenet121(growth_rate=32, compression=1.0):
     # Create Model
     model = K.Model(inputs=inputs, outputs=output_layer)
     return model
-
-# Example usage
-model = densenet121()
-model.summary()
