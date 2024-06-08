@@ -9,6 +9,7 @@ def baum_welch(Observations, Transition, Emission, Initial, iterations=1000):
     """
     
     def forward(Observation, Emission, Transition, Initial):
+        '''perfrom the forward algorithm for Baum-Welch'''
         T = Observation.shape[0]
         N = Emission.shape[0]
         F = np.zeros((N, T))
@@ -21,6 +22,7 @@ def baum_welch(Observations, Transition, Emission, Initial, iterations=1000):
         return P, F
 
     def backward(Observation, Emission, Transition, Initial):
+        '''perfrom the forward algorithm for Baum-Welch'''
         T = Observation.shape[0]
         N = Emission.shape[0]
         B = np.zeros((N, T))
