@@ -23,7 +23,6 @@ def optimum_k(X, kmin=1, kmax=None, iterations=1000):
     if kmin <= 0 or kmax <= 0 or kmax <= kmin:
         return None, None
 
-
     prev_var = 0.0
     results = []
     d_vars = []
