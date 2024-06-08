@@ -1,12 +1,10 @@
 #!/usr/bin/env python3
-"""Word2Vec model creation and training."""
-
-
-from gensim.models import Word2Vec
+"""FastText model creation and training."""
+from gensim.models import FastText
 from typing import List
 
 
-def word2vec_model(sentences: List[List[str]], 
+def fasttext_model(sentences: List[List[str]], 
                    vector_size: int = 100, 
                    min_count: int = 5, 
                    window: int = 5,
@@ -14,12 +12,12 @@ def word2vec_model(sentences: List[List[str]],
                    cbow: bool = True, 
                    iterations: int = 5, 
                    seed: int = 0, 
-                   workers: int = 1) -> Word2Vec:
+                   workers: int = 1) -> FastText:
     """
-    Initialize and train a Word2Vec model.
+    Initialize and train a FastText model.
     """
     sg = 0 if cbow else 1
-    model = Word2Vec(vector_size=vector_size,
+    model = FastText(vector_size=vector_size,
                      window=window, 
                      min_count=min_count, 
                      workers=workers,
