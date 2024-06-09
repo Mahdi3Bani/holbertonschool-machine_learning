@@ -1,23 +1,23 @@
 #!/usr/bin/env python3
-"""user location"""
-import sys
+"""Get location of github user."""
 import requests
+import sys
 import time
 
-def get_user_location(user_url):
-    '''get_user_location'''
-    response = requests.get(user_url)
 
-    if response.status_code == 404:
+def user_location(url):
+    """Get location of github user."""
+    req = requests.get(url)
+    if req.status_code == 403:
+        reset = int(req.headers['X-Ratelimit-Reset'])
+        tm_to_reset = reset - int(time.time())
+        print("Reset in {} min".format(tm_to_reset//60))
+    elif req.status_code == 404:
         print("Not found")
-        return
-    elif response.status_code == 403:
-        reset_time = int(response.headers['X-Ratelimit-Reset'])
-        current_time = int(time.time())
-        reset_in_minutes = (reset_time - current_time) // 60
-        print(f"Reset in {reset_in_minutes} min")
-        return
+    else:
+        user = req.json()
+        print(user['location'])
 
-    user_data = response.json()
-    location = user_data.get('location', 'Location not provided')
-    print(location)
+
+if __name__ == "__main__":
+    user_location(sys.argv[1])
