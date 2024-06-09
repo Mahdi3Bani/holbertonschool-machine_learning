@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-"""Get location of github user."""
+"""Get location of github user"""
 import requests
 import sys
 import time
 
 
 def user_location(url):
-    """Get location of github user."""
+    """Get location of github user"""
     req = requests.get(url)
     if req.status_code == 403:
         reset = int(req.headers['X-Ratelimit-Reset'])
