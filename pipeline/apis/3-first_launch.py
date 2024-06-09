@@ -9,8 +9,8 @@ def first_launch():
     min_idx = unix_dates.index(min(unix_dates))
     upcoming_launch = launches[min_idx]
 
-    rocket = requests.get(f'https://api.spacexdata.com/v4/rockets/{upcoming_launch["rocket"]}').json()
-    launchpad = requests.get(f'https://api.spacexdata.com/v4/launchpads/{upcoming_launch["launchpad"]}').json()
+    rocket = requests.get(f"https://api.spacexdata.com/v4/rockets/{upcoming_launch['rocket']}").json()
+    launchpad = requests.get(f"https://api.spacexdata.com/v4/launchpads/{upcoming_launch['launchpad']}").json()
 
     return {
         'launch_name': upcoming_launch['name'],
