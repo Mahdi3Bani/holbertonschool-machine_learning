@@ -160,21 +160,19 @@ class Yolo:
             images.append(image)
             image_paths.append(image_path)
         return images, image_paths
-    
+
     def preprocess_images(self, images):
         """
         Preprocess the images to the required input shape for the yolov3 model.
         """
-        image_list = []
+        input_w = self.model.input.shape[1]
+        input_h = self.model.input.shape[2]
         image_shapes = []
+        pimages = []
         for image in images:
-            resized_image = cv2.resize(image,
-                                       (self.model.input.shape[1].value,
-                                        self.model.input.shape[2].value),
-                                       interpolation = cv2.INTER_CUBIC)
-            rescaled_image = resized_image.astype(np.float32) / 255
-            image_shapes.append(rescaled_image.shape[:2])
-            image_list.append(rescaled_image)
-        pimages = np.array(image_list)
-        image_shapes = np.array(image_shapes)
-        return pimages, image_shapes
+            image_shapes.append(image.shape[:2])
+            pimage = cv2.resize(image, (input_w, input_h),
+                                interpolation=cv2.INTER_CUBIC)
+            pimage = pimage / 255
+            pimages.append(pimage)
+        return np.array(pimages), np.array(image_shapes)
