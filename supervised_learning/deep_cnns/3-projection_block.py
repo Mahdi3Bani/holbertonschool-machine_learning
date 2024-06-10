@@ -3,7 +3,7 @@
 """
 
 
-import tensorflow.keras as K
+from tensorflow import keras as K
 
 
 def projection_block(A_prev, filters, s=2):
