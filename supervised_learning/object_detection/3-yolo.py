@@ -81,7 +81,7 @@ class Yolo:
 
     def filter_boxes(self, boxes, box_confidences, box_class_probs):
         """
-        Filter the boxes based on the class score threshold 
+        Filter the boxes based on the class score threshold
         """
         filtered_boxes = []
         box_classes = []
@@ -102,11 +102,13 @@ class Yolo:
 
     def non_max_suppression(self, filtered_boxes, box_classes, box_scores):
         """
-        Apply Non-Max Suppression to the filtered boxes to remove overlapping boxes
+        Apply Non-Max Suppression to the filtered boxes to remove
+        overlapping boxes
         """
         def calculate_iou(box, boxes):
             """
-            Calculate IoU (Intersection over Union) between a box and a list of boxes
+            Calculate IoU (Intersection over Union) between a box
+            and a list of boxes
             """
             box_area = (box[2] - box[0]) * (box[3] - box[1])
             length_x = (boxes[:, 2] - boxes[:, 0])
