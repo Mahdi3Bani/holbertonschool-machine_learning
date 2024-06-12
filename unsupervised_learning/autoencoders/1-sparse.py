@@ -24,7 +24,7 @@ def autoencoder(input_dims, hidden_layers, latent_dims, lambtha):
     outputs = K.layers.Dense(input_dims, activation='sigmoid')(x)
 
     # Models
-    encoder_model = K.Model(inputs, latent)
+    encoder = K.Model(inputs, latent)
     decoder_input = K.Input(shape=(latent_dims,))
     decoder_output = decoder_input
     for layer in reversed(hidden_layers):
@@ -32,11 +32,11 @@ def autoencoder(input_dims, hidden_layers, latent_dims, lambtha):
                                         activation='relu')(decoder_output)
     decoder_output = K.layers.Dense(input_dims,
                                     activation='sigmoid')(decoder_output)
-    decoder_model = K.Model(decoder_input, decoder_output)
-    autoencoder_output = decoder_model(encoder_model(inputs))
-    autoencoder_model = K.Model(inputs, autoencoder_output)
+    decoder = K.Model(decoder_input, decoder_output)
+    autoencoder_output = decoder(encoder(inputs))
+    autoencoder = K.Model(inputs, autoencoder_output)
 
     # Compile the autoencoder model
-    autoencoder_model.compile(optimizer='adam', loss='binary_crossentropy')
+    autoencoder.compile(optimizer='adam', loss='binary_crossentropy')
 
-    return encoder_model, decoder_model, autoencoder_model
+    return encoder, decoder, autoencoder
