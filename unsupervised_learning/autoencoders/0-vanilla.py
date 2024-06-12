@@ -1,40 +1,35 @@
 #!/usr/bin/env python3
-'''creates an autoencoder'''
-
-
-import tensorflow.keras as keras
-
+"""autoencoder"""
+import tensorflow.keras as K
 
 def autoencoder(input_dims, hidden_layers, latent_dims):
     """
-    Builds an autoencoder model
+    Creates a vanilla autoencoder model.
     """
-
-    encoder_input = keras.layers.Input(shape=(input_dims,))
-
+    
+    # Encoder
+    encoder_input = K.Input(shape=(input_dims,))
     x = encoder_input
     for units in hidden_layers:
-        x = keras.layers.Dense(units, activation='relu')(x)
-
-    encoder_output = keras.layers.Dense(latent_dims, activation='relu')(x)
-
-    encoder = keras.models.Model(encoder_input, encoder_output, name='encoder')
-
-    decoder_input = keras.layers.Input(shape=(latent_dims,))
-
+        x = K.layers.Dense(units, activation='relu')(x)
+    latent_output = K.layers.Dense(latent_dims, activation='relu')(x)
+    encoder = K.Model(encoder_input, latent_output, name='encoder')
+    
+    # Decoder
+    decoder_input = K.Input(shape=(latent_dims,))
     x = decoder_input
     for units in reversed(hidden_layers):
-        x = keras.layers.Dense(units, activation='relu')(x)
-
-    decoder_output = keras.layers.Dense(input_dims, activation='sigmoid')(x)
-
-    decoder = keras.models.Model(decoder_input, decoder_output, name='decoder')
-
+        x = K.layers.Dense(units, activation='relu')(x)
+    decoder_output = K.layers.Dense(input_dims, activation='sigmoid')(x)
+    decoder = K.Model(decoder_input, decoder_output, name='decoder')
+    
+    # Autoencoder
     autoencoder_input = encoder_input
     encoded = encoder(autoencoder_input)
     decoded = decoder(encoded)
-    auto = keras.models.Model(autoencoder_input, decoded, name='autoencoder')
-
-    auto.compile(optimizer=keras.optimizers.Adam(), loss=keras.losses.BinaryCrossentropy())
-
-    return encoder, decoder, auto
+    autoencoder = K.Model(autoencoder_input, decoded, name='autoencoder')
+    
+    # Compile the autoencoder
+    autoencoder.compile(optimizer='adam', loss='binary_crossentropy')
+    
+    return encoder, decoder, autoencoder
