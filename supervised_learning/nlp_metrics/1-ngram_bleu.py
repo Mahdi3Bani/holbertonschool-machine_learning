@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
-"""nlp metrics"""
+"""natural language processing evalutaion metrics"""
+
+
 import numpy as np
 
 
