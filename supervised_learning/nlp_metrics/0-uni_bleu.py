@@ -6,7 +6,7 @@ import numpy as np
 from typing import List
 
 
-def uni_bleu(references: List[List[str]], sentence: List[str]) -> float:
+def uni_bleu(references, sentence):
     """Calculate the unigram BLEU score"""
     candidate_length = len(sentence)
     reference_length = min(len(ref) for ref in references)
