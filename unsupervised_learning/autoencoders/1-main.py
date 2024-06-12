@@ -1,32 +1,36 @@
 #!/usr/bin/env python3
-"""autoencoder"""
 
-import tensorflow.keras as K
+import sys
+import matplotlib.pyplot as plt
+import numpy as np
+import tensorflow as tf
+from tensorflow.keras.datasets import mnist
+
+# Set the encoding for stdout to 'utf-8'
+sys.stdout.reconfigure(encoding='utf-8')
 
 
-def autoencoder(input_dims, hidden_layers, latent_dims, lambtha):
-    """creates a sparse autoencoder"""
-    reg = K.regularizers.l1(lambtha)
-    
-    # Encoder
-    inputs = K.Input(shape=(input_dims,))
-    x = inputs
-    for layer in hidden_layers:
-        x = K.layers.Dense(layer, activation='relu')(x)
-    latent = K.layers.Dense(latent_dims, activation='relu', activity_regularizer=reg)(x)
-    
-    # Decoder
-    x = latent
-    for layer in reversed(hidden_layers):
-        x = K.layers.Dense(layer, activation='relu')(x)
-    outputs = K.layers.Dense(input_dims, activation='sigmoid')(x)
-    
-    # Models
-    encoder_model = K.Model(inputs, latent)
-    decoder_model = K.Model(latent, outputs)
-    autoencoder_model = K.Model(inputs, decoder_model(encoder_model(inputs)))
+autoencoder = __import__('1-sparse').autoencoder
 
-    # Compile the autoencoder model
-    autoencoder_model.compile(optimizer='adam', loss='binary_crossentropy')
+(x_train, _), (x_test, _) = mnist.load_data()
+x_train = x_train.astype('float32') / 255.
+x_test = x_test.astype('float32') / 255.
+x_train = x_train.reshape((-1, 784))
+x_test = x_test.reshape((-1, 784))
+np.random.seed(0)
+tf.random.set_seed(0) 
+encoder, decoder, auto = autoencoder(784, [128, 64], 32, 10e-6)
+auto.fit(x_train, x_train, epochs=100,batch_size=256, shuffle=True,
+                validation_data=(x_test, x_test))
+encoded = encoder.predict(x_test[:10])
+print(np.mean(encoded))
+reconstructed = decoder.predict(encoded)
 
-    return encoder_model, decoder_model, autoencoder_model
+for i in range(10):
+    ax = plt.subplot(2, 10, i + 1)
+    ax.axis('off')
+    plt.imshow(x_test[i].reshape((28, 28)))
+    ax = plt.subplot(2, 10, i + 11)
+    ax.axis('off')
+    plt.imshow(reconstructed[i].reshape((28, 28)))
+plt.show()
