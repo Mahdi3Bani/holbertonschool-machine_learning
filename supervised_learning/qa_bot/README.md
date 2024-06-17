@@ -19,7 +19,6 @@ pip install tensorflow tensorflow_hub transformers numpy
 # Task Descriptions
 ## Task 0: Question Answering
 
-## Function: question_answer
 
 This function finds a snippet of text within a reference document to answer a question using BERT.
 
